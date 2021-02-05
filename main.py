@@ -3,10 +3,20 @@ import mido
 
 def atom_in_callback(message):
     """
-    MIDI input callback
+    ATOM MIDI input callback
     :param message:
     """
-    print(message)
+    print("ATOM input: %s" % message)
+    send_to_loop(message)
+
+
+def loop_in_callback(message):
+    """
+    AtomCtrl loop MIDI input callback
+    :param message:
+    """
+    print("AtomCtrl input: %s" % message)
+    send_to_atom(message)
 
 
 ''' Modes
@@ -50,10 +60,34 @@ for atom_in_name in in_names:
 else:
     print("ATOM input port not found!")
 
+# TODO: Filter AtomCtrl loop ports
+for loop_out_name in out_names:
+    if 'AtomCtrl' in loop_out_name:
+        print("Found AtomCtrl loop output port: %s" % loop_out_name)
+        break
+else:
+    print("AtomCtrl loop output port not found!")
+
+for loop_in_name in in_names:
+    if 'AtomCtrl' in loop_in_name:
+        print("Found AtomCtrl loop input port: %s" % loop_in_name)
+        break
+else:
+    print("AtomCtrl loop input port not found!")
+
+loop_out_port = mido.open_output(loop_out_name)
+loop_in_port = mido.open_input(loop_in_name, callback=loop_in_callback)
 atom_out_port = mido.open_output(atom_out_name)
 atom_in_port = mido.open_input(atom_in_name, callback=atom_in_callback)
 
-# TODO: Filter AtomCtrl loop ports
+
+def send_to_loop(message):
+    loop_out_port.send(message)
+
+
+def send_to_atom(message):
+    atom_out_port.send(message)
+
 
 # Switch to native mode
 atom_out_port.send(nc_mode)
