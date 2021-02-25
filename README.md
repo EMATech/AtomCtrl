@@ -1,10 +1,12 @@
-# AtomCtrl
+AtomCtrl
+========
 
-Presonus ATOM Controller
+An experiment with the Presonus ATOM Controller
 
-## LoopMIDI
+## LoopMIDI setup (Microsoft Windows)
 
-Create "from ATOM" and "to ATOM" ports Configure your DAW to use these ports rather than the ATOM port
+- Create "from ATOM" and "to ATOM" ports
+- Configure the DAW to use these ports rather than the ATOM port
 
 ```
  +------+                +----------+                +-----+

@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+"""AtomCtrl: use Presonus ATOM controller outside of DAWs."""
+
+__author__ = 'Raphaël Doursenaud'
+
 import logging
 from signal import signal, SIGINT, SIGTERM
 
